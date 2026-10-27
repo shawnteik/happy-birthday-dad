@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Happy Birthday, Daddy ❤️</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600;700&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --gold: #f7e7ce;
+  --champagne: #f7e7ce;
+  --white: #ffffff;
+  --navy: #101D30;
+  --navy-deep: #0a1322;
+  --navy-light: #1b2d4a;
+  --font: 'Poppins', Arial, sans-serif;
+  --font-title: 'Dancing Script', cursive;
+  --font-message: 'Raleway', Arial, sans-serif;
+  --bg: radial-gradient(
+    circle at top,
+    var(--navy-light) 0,
+    var(--navy) 48%,
+    var(--navy-deep) 100%
+  );
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  background-attachment: fixed;
+  color: var(--white);
+  font-family: var(--font);
+  min-height: 100vh;
+}
+
+body.locked {
+  overflow: hidden;
+}
+
+/* ---------- ENVELOPE ---------- */
+
+#stage {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 44px;
+  background: var(--bg);
+  transition: opacity .9s ease, visibility .9s ease;
+}
+
+#stage.done {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.stage-title {
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: clamp(2rem, 8vw, 3.2rem);
+  color: var(--white);
+  text-align: center;
+}
+
+.env {
+  --w: min(340px, 84vw);
+  position: relative;
+  width: var(--w);
+  height: calc(var(--w) * .68);
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+  perspective: 1000px;
+  filter: drop-shadow(0 20px 28px rgba(0, 0, 0, .5));
+  -webkit-tap-highlight-color: transparent;
+}
+
+.env:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 10px;
+}
+
+.env-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  background: #223656;
+}
+
+.letter {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  top: 8%;
+  height: 86%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background: #fff8e9;
+  color: var(--navy);
+  transition: transform .9s cubic-bezier(.3, .7, .2, 1) .55s;
+}
+
+.letter strong {
+  font-family: var(--font-title);
+  font-size: clamp(1.8rem, 7vw, 2.4rem);
+  line-height: 1.1;
+}
+
+.letter span {
+  margin-top: 6px;
+  font-size: .72rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.pocket {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: 6px;
+  background: linear-gradient(160deg, #2f4a73, #263f63);
+  clip-path: polygon(0 0, 50% 54%, 100% 0, 100% 100%, 0 100%);
+}
+
+.flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 56%;
+  z-index: 4;
+  background: linear-gradient(180deg, #3a5883, #2f4a73);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top center;
+  transition: transform .8s ease, z-index 0s linear .4s;
+}
+
+.seal {
+  position: absolute;
+  left: 50%;
+  top: 56%;
+  z-index: 5;
+  width: 46px;
+  height: 46px;
+  margin: -23px 0 0 -23px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--gold);
+  color: #7b2d3b;
+  font-size: 1.3rem;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, .4);
+  transition: opacity .3s ease, transform .3s ease;
+}
+
+.env.open .flap {
+  transform: rotateX(180deg);
+  z-index: 1;
+}
+
+.env.open .letter {
+  transform: translateY(-62%);
+}
+
+.env.open .seal {
+  opacity: 0;
+  transform: scale(.4);
+}
+
+.hint {
+  margin: 0;
+  font-size: .95rem;
+  letter-spacing: .08em;
+  color: var(--white);
+  transition: opacity .4s ease;
+}
+
+.hint.gone {
+  opacity: 0;
+}
+
+/* ---------- MAIN PAGE ---------- */
+
+main {
+  width: min(960px, 92%);
+  margin: auto;
+  padding: 48px 0 64px;
+  text-align: center;
+}
+
+main[hidden] {
+  display: none;
+}
+
+main.reveal {
+  animation: fadein 1s ease;
+}
+
+.eyebrow {
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--white);
+  font: 14px var(--font);
+  font-weight: 600;
+}
+
+h1 {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: clamp(3rem, 10vw, 6rem);
+  line-height: 1.05;
+  color: var(--white);
+  margin: 18px 0;
+}
+
+.intro {
+  max-width: 650px;
+  margin: 0 auto;
+  font-size: clamp(1rem, 2.6vw, 1.2rem);
+  line-height: 1.9;
+  color: var(--white);
+}
+
+.love-letter {
+  max-width: 720px;
+  margin: 34px auto 40px;
+  padding: clamp(24px, 5vw, 44px);
+  text-align: left;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(247,231,206,.35);
+  border-radius: 16px;
+  font-family: var(--font-message);
+  font-size: clamp(1rem, 2.6vw, 1.1rem);
+  line-height: 1.9;
+  color: var(--white);
+}
+
+.love-letter p {
+  margin: 0 0 1.3em;
+}
+
+.love-letter .greeting {
+  margin-bottom: .5em;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: clamp(2rem, 6vw, 2.7rem);
+  line-height: 1.2;
+}
+
+.love-letter .signoff {
+  margin-bottom: .4em;
+}
+
+.love-letter .signature {
+  margin: 0;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: clamp(1.8rem, 5vw, 2.3rem);
+  line-height: 1.3;
+}
+
+.rule {
+  width: 90px;
+  height: 1px;
+  background: var(--gold);
+  margin: 26px auto;
+}
+
+button.gift {
+  border: 1px solid var(--champagne);
+  background: var(--champagne);
+  color: #201610;
+  padding: 15px 24px;
+  border-radius: 999px;
+  font-weight: bold;
+  font-size: 1rem;
+  font-family: inherit;
+  cursor: pointer;
+  margin-top: 22px;
+}
+
+button.gift:hover {
+  background: #fff6e8;
+  border-color: #fff6e8;
+}
+
+#surprise {
+  display: none;
+  margin-top: 42px;
+  animation: fadein .9s ease;
+}
+
+#surprise.show {
+  display: block;
+}
+
+h2 {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: clamp(2.1rem, 6.5vw, 3.2rem);
+  color: var(--white);
+}
+
+.message {
+  max-width: 700px;
+  margin: 0 auto 30px;
+  line-height: 1.9;
+  font-family: var(--font-message);
+  font-size: 1.08rem;
+  color: var(--white);
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(100%, 260px), 1fr)
+  );
+  gap: 18px;
+  text-align: left;
+  margin-top: 25px;
+}
+
+.memory {
+  margin: 0;
+  padding: 10px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(247,231,206,.35);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.memory img,
+.memory video {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 520px;
+  object-fit: contain;
+  background: var(--navy-deep);
+  border-radius: 10px;
+}
+
+.memory figcaption {
+  padding: 12px 4px 3px;
+  color: var(--white);
+  font-size: .95rem;
+}
+
+.closing {
+  margin-top: 38px;
+  font-size: 1.15rem;
+  line-height: 1.9;
+  color: var(--white);
+}
+
+.heart {
+  color: #e7a1a9;
+  font-size: 1.7rem;
+}
+
+footer {
+  margin-top: 50px;
+  color: var(--white);
+  font: 12px var(--font);
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #surprise,
+  main.reveal {
+    animation: none;
+  }
+  .flap,
+  .letter,
+  .seal,
+  #stage {
+    transition-duration: .01s;
+    transition-delay: 0s;
+  }
+}
+</style>
+</head>
+
+<body class="locked">
+
+<!-- ENVELOPE SCREEN -->
+<div id="stage">
+  <h2 class="stage-title">A letter for Daddy</h2>
+
+  <button
+    id="envelope"
+    class="env"
+    type="button"
+    aria-label="Open the envelope"
+    onclick="openEnvelope()"
+  >
+    <span class="env-back"></span>
+    <span class="letter">
+      <strong>For Daddy</strong>
+      <span>With love</span>
+    </span>
+    <span class="pocket"></span>
+    <span class="flap"></span>
+    <span class="seal">♥</span>
+  </button>
+
+  <p id="hint" class="hint">Tap the envelope to open it</p>
+</div>
+
+<!-- MESSAGE -->
+<main id="page" hidden>
+
+  <div class="eyebrow">
+    World’s Best Dad
+  </div>
+
+  <h1>Happy Birthday, Daddy!</h1>
+
+  <div class="rule"></div>
+
+  <p class="intro">
+    Today is all about celebrating you. Thank you for being
+    part of my story and for all the memories we share.
+    May God bless you with good health, peace, joy, wisdom,
+    and many more beautiful years.
+  </p>
+
+  <p class="heart">♥</p>
+
+  <article class="love-letter" aria-label="A letter to Daddy">
+    <p class="greeting">Dear Daddy, ❤️</p>
+
+    <p>On this very special day, I wish you the happiest of birthdays!</p>
+
+    <p>
+      As your daughter, I have learnt so much from you: through your walk
+      with Christ, your character, and the beautiful way you carry yourself
+      with elegance and grace. Each day, you inspire me to be hardworking,
+      honest, and, above all, a true child of God.
+    </p>
+
+    <p>
+      My memories with you are ones I could never forget, because you have
+      always been there for me. Through my hardest and darkest times, you
+      stood by my side. When things were difficult, you remained my strength
+      and my comfort. And if I were to be reborn, I would still choose you to
+      be my father—over and over again, in every lifetime, without a second
+      thought!
+    </p>
+
+    <p>
+      Your heart is as pure as gold, and your kindness is as endless as the
+      stars in the sky. ✨ Thank you for being my world, my rock, and my
+      shield. Thank you for always providing for me, for making sure that I am
+      well, and for going out of your way to give me beautiful experiences.
+      Thank you for taking me to places around the world and giving me
+      memories that I will cherish for the rest of my life.
+    </p>
+
+    <p>
+      Thank you for being my Mr. Barry! ❤️ There is nothing more I could wish
+      for than a man like you: a father who loves me, cares for me genuinely,
+      and continues to show me, through his actions, what it means to be loved
+      wholeheartedly. Honestly, Daddy, what more could I ask for? You are a
+      blessing I will never take for granted!
+    </p>
+
+    <p>
+      If there is one thing I hope you never forget, it is this: I love you
+      more than words could ever express, and I will forever be grateful that
+      God chose you to be my father. No matter how old I grow, I will always
+      be your little girl!
+    </p>
+
+    <p>
+      P.S. I’m still your stubborn daughter! 🤣🤭💕 Don’t expect that to
+      change anytime soon!
+    </p>
+
+    <p class="signoff">
+      With the fullness of my heart, overflowing with love and gratitude,
+    </p>
+
+    <p class="signature">Your daughter, Janice. ❤️</p>
+  </article>
+
+  <p class="intro">
+    I saved something special for you. Ready?
+  </p>
+
+  <button
+    id="revealButton"
+    class="gift"
+    type="button"
+    aria-expanded="false"
+    aria-controls="surprise"
+    onclick="revealSurprise()"
+  >
+    Open your secret gift
+  </button>
+
+  <section id="surprise" aria-live="polite">
+
+    <h2>Our memories, just for you ❤️</h2>
+
+    <p class="message">
+      These pictures and videos hold little pieces of our story.
+      They remind me that some of the best gifts are not things
+      at all, but the moments we get to share. I hope they make
+      you smile today and whenever you look back at them.
+    </p>
+
+    <div class="gallery">
+
+      <!-- PHOTO 1 -->
+      <figure class="memory">
+        <img src="media/IMG_2647(1).jpeg" alt="Family memory" loading="lazy">
+        <figcaption>A memory to treasure</figcaption>
+      </figure>
+
+      <!-- PHOTO 2 -->
+      <figure class="memory">
+        <img src="media/IMG_6707.jpeg" alt="Family memory" loading="lazy">
+        <figcaption>The moments that matter</figcaption>
+      </figure>
+
+      <!-- PHOTO 3 -->
+      <figure class="memory">
+        <img src="media/IMG_6706.jpeg" alt="Family memory" loading="lazy">
+        <figcaption>Family, always</figcaption>
+      </figure>
+
+      <!-- PHOTO 4 -->
+      <figure class="memory">
+        <img src="media/IMG_5059.jpeg" alt="Family memory" loading="lazy">
+        <figcaption>One for the memories</figcaption>
+      </figure>
+
+      <!-- PHOTO 5 -->
+      <figure class="memory">
+        <img src="media/IMG_0067.jpeg" alt="Family memory" loading="lazy">
+        <figcaption>Our little collection</figcaption>
+      </figure>
+
+      <!-- PHOTO 6 -->
+      <figure class="memory">
+        <img src="media/9ff04c30-03d4-43ed-95dc-fbb9f2d9fe4d.jpeg" alt="Family memory" loading="lazy">
+        <figcaption>A special moment</figcaption>
+      </figure>
+
+      <!-- PHOTO 7 -->
+      <figure class="memory">
+        <img src="media/6879698D-20BC-4E33-8002-18FEEF57F8FB.jpeg" alt="Family memory" loading="lazy">
+        <figcaption>Love captured</figcaption>
+      </figure>
+
+      <!-- PHOTO 8: YOUR FAMILY PHOTO -->
+      <figure class="memory">
+        <img src="media/family-photo.jpeg" alt="Daddy and family together" loading="lazy">
+        <figcaption>Together is a blessing</figcaption>
+      </figure>
+
+      <!-- VIDEO 1 -->
+      <figure class="memory video">
+        <video controls playsinline preload="metadata">
+          <source src="media/birthday-video-1.mp4" type="video/mp4">
+          Your browser does not support video playback.
+        </video>
+        <figcaption>A little moment in motion</figcaption>
+      </figure>
+
+      <!-- VIDEO 2 -->
+      <figure class="memory video">
+        <video controls playsinline preload="metadata">
+          <source src="media/birthday-video-2.mp4" type="video/mp4">
+          Your browser does not support video playback.
+        </video>
+        <figcaption>Memories we can replay</figcaption>
+      </figure>
+
+      <!-- VIDEO 3 -->
+      <figure class="memory video">
+        <video controls playsinline preload="metadata">
+          <source src="media/birthday-video-3.mp4" type="video/mp4">
+          Your browser does not support video playback.
+        </video>
+        <figcaption>A birthday keepsake</figcaption>
+      </figure>
+
+    </div>
+
+    <p class="closing">
+      May this new year of your life bring you happiness,
+      strength, favour, and everything good you pray for.
+      <br>
+      <strong>
+        Happy Birthday, Daddy. Love you! ❤️
+      </strong>
+    </p>
+
+  </section>
+
+  <footer>
+    Made with love, especially for Daddy.
+  </footer>
+
+</main>
+
+<script>
+function openEnvelope() {
+  const env = document.getElementById('envelope');
+  if (env.classList.contains('open')) return;
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  env.classList.add('open');
+  env.setAttribute('aria-label', 'Envelope opened');
+  document.getElementById('hint').classList.add('gone');
+
+  setTimeout(function () {
+    const page = document.getElementById('page');
+    page.hidden = false;
+    page.classList.add('reveal');
+    document.getElementById('stage').classList.add('done');
+    document.body.classList.remove('locked');
+    window.scrollTo(0, 0);
+  }, reduce ? 100 : 2300);
+}
+
+function revealSurprise() {
+  const section = document.getElementById('surprise');
+  const button = document.getElementById('revealButton');
+
+  section.classList.add('show');
+  button.textContent = '❤️ Your surprise is open';
+  button.setAttribute('aria-expanded', 'true');
+
+  section.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start'
+  });
+}
+</script>
+</body>
+</html>
